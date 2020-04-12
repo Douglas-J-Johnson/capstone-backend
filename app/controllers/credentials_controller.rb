@@ -1,4 +1,6 @@
 class CredentialsController < ApplicationController
+    before_action :authenticate
+
     def generate_service_token
         @credential = Credential.find_by(service_name: params[:service_name])
 
