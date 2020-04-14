@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
     def index
-        if(!authenticate)
+        #if(!authenticate)
             render json: {users: User.all}, status: :ok
-        end
+        #end
     end
 
     def create
