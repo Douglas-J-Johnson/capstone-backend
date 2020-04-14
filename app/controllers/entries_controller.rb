@@ -18,10 +18,15 @@ class EntriesController < ApplicationController
     end
 
     def create
-        @entry = Entry.create(entry_params)
+        byebug
+        @entry = Entry.create(
+            date: entry_params[:date],
+            text: entry_params[:text],
+            user_id: @user.id  
+        )
 
-        if(!@entry)
-            render json: {message: "Could not create entry."}, status: :bad_request
+        if(@entry.invalid?)
+            render json: {message: @entry.errors.messages}, status: :bad_request
         else
             render json: {entry: @entry}, status: :created
         end 
@@ -33,21 +38,27 @@ class EntriesController < ApplicationController
         if(!@entry)
             render json: {message: "Could not find entry, update unsucessful."}, status: :not_found
         else
-            if(@entry.update(entry_params))
-                render json: {entry: @entry}, status: :ok
+            @entry.update(entry_params)
+
+            if(@entry.invalid?)
+                render json: {message: @entry.errors.messages}, status: :bad_request
             else
-                render json: {message: "Could not update entry."}, status: :bad_request
+                render json: {entry: @entry}, status: :ok
             end
-        end  
+        end
     end
 
-    def delete
+    def destroy
         @entry = Entry.find(params[:id])
 
         if(!@entry)
             render json: {message: "Could not find entry, deletion unsucessful."}, status: :not_found
         else
-            render json: {entry: @entry}, status: :ok
+            if(!@entry.destroy)
+                render json: {message: @entry.errors.messages}
+            else
+                render json: {message: "Successfully Deleted"}, status: :ok
+            end
         end        
     end
 
