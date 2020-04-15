@@ -18,7 +18,6 @@ class EntriesController < ApplicationController
     end
 
     def create
-        byebug
         @entry = Entry.create(
             date: entry_params[:date],
             text: entry_params[:text],

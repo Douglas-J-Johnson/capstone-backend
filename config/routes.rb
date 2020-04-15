@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   resources :entries
-  resources :users, only: [:index, :create]
+  resources :users, only: [:create]
   post "login", to: "authentication#login"
   get "generate_service_token", to: "credentials#generate_service_token"
-
-  #get "get_service_credentials", to: "credentials#get_service_credentials"
 end

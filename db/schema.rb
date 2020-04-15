@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_215518) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.integer "date"
+    t.string "date"
     t.string "text"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false

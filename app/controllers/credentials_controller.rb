@@ -25,17 +25,4 @@ class CredentialsController < ApplicationController
             end
         end
     end
-
-    def get_service_credentials
-        @credential = Credential.find_by(service_name: params[:service_name])
-
-        if(!@credential)
-            render json: {message: "Unknown API service requested."}, status: :not_found
-        else
-            render json: {
-                api_key: @credential.api_key,
-                api_url: @credential.api_url
-            }, staus: :ok
-        end
-    end
 end

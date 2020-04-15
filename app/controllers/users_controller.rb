@@ -1,10 +1,4 @@
 class UsersController < ApplicationController
-    def index
-        #if(!authenticate)
-            render json: {users: User.all}, status: :ok
-        #end
-    end
-
     def create
         @user = User.create(user_params)
 
