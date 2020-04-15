@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_215518) do
+ActiveRecord::Schema.define(version: 2020_04_15_200902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "analyses", force: :cascade do |t|
+    t.string "raw_results"
+    t.bigint "entry_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["entry_id"], name: "index_analyses_on_entry_id"
+  end
 
   create_table "credentials", force: :cascade do |t|
     t.string "service_name"
@@ -39,5 +47,6 @@ ActiveRecord::Schema.define(version: 2020_04_11_215518) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "analyses", "entries"
   add_foreign_key "entries", "users"
 end

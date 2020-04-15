@@ -1,5 +1,6 @@
 class Entry < ApplicationRecord
     belongs_to :user
+    has_one :analysis
 
     validates :date, presence: true, uniqueness: true, on: [:create, :update]
     validates :text, presence: true, on: [:create, :update]
